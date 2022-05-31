@@ -1,0 +1,53 @@
+<!-- {% extends 'app1/base.html' %}
+
+{% block body %}
+<div class="page-content">
+    <div class="card radius-15">
+        <div class="card-body">
+            <div class="card-title">
+                <center>
+                    <h2 class="mb-0">CUSTOMER COMPLAINT</h2>
+                </center>
+                <hr>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-content">
+        <div class="card radius-15">
+            <div class="card-body">
+                <form action="{% url 'customer_complaint' %}" method="post">
+                    {% csrf_token %}
+                    
+<div class="row">
+    <div class="col-3">
+
+        <label class="m-2" for="invoiceno">Invoice Number:</label>
+        <input class="form-control m-2" type="text" name="invoiceno">
+        <label class="m-2" for="">Customer Name</label>
+        <input type="text" class="form-control m-2">
+      
+    </div>
+    <div class="col-3">
+        <label class="m-2" for="sku">SKU Number:</label>
+        <input class="form-control m-2" type="text" name="skuno"> 
+        <label class="m-2" for="">Product Name</label>
+        <input type="text" class="form-control m-2">
+    </div>
+    <div class="col-3">
+        <label class="m-2" for="des">Description</label>
+        <textarea class="form-control m2-2" name="bname" id="bname" rows="7" type="text" style="background-color: #2f516f; color: white;">{{ invoice.bname }}</textarea>
+    </div>
+</div>
+
+<div class="text-center">
+    <button class="btn btn-outline-info mt-4" type="submit">submit</button>
+</div>
+                </form>
+               
+            </div>
+        </div>
+
+    </div>
+
+    {% endblock %} -->
