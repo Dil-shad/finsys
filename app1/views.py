@@ -32633,20 +32633,20 @@ def quality_managment_notification(request):
      
 
 
-# def customer_complaint(request):
-#     if request.method=='POST':
-#         invno=request.POST['invoiceno']
-#         sku=request.POST['skuno']
+def customer_complaint(request):
+    if request.method=='POST':
+        invno=request.POST['invoiceno']
+        sku=request.POST['skuno']
 
-#         var=invoice.objects.filter(invoiceno=invno).all()
-#         var1=inventory.objects.get(sku=sku)
+        var=invoice.objects.filter(invoiceno=invno).all()
+        var1=inventory.objects.get(sku=sku)
         
-#         context={
+        context={
 
-#             'obj1':var,
-#             'obj2':var1,
-#         }
+            'obj1':var,
+            'obj2':var1,
+        }
 
 
 
-#     return render(request,'app1/customercomplint.html')
+    return render(request,'app1/customercomplint.html')
