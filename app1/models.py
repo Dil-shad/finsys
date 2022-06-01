@@ -28,7 +28,8 @@ class company(models.Model):
     pincode = models.CharField(max_length=100)
     cemail = models.EmailField(max_length=100)
     phone = models.CharField(max_length=100)
-    cimg = models.ImageField(upload_to='images/', default='/images/default.png')
+    cimg = models.ImageField(
+        upload_to='images/', default='/images/default.png')
     bname = models.CharField(max_length=100)
     industry = models.CharField(max_length=100)
     ctype = models.CharField(max_length=100)
@@ -808,7 +809,8 @@ class bundle(models.Model):
 class inventory(models.Model):
     inventoryid = models.AutoField(('INVENTORYID'), primary_key=True)
     cid = models.ForeignKey(company, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='img/%y', default='/images/default.png')
+    image = models.ImageField(
+        upload_to='img/%y', default='/images/default.png')
     name = models.CharField(max_length=100)
     sku = models.CharField(max_length=100)
     hsn = models.CharField(max_length=100)
@@ -917,18 +919,21 @@ class expenseaccount(models.Model):
     serchar = models.CharField(max_length=100, default='0')
     expacc = models.CharField(max_length=100, null=True)
     type1 = models.CharField(max_length=100, null=True, default='Journal')
-    memo1 = models.CharField(max_length=100, null=True, default='Service Charge')
+    memo1 = models.CharField(max_length=100, null=True,
+                             default='Service Charge')
 
 
 class incomeaccount(models.Model):
     incomeid = models.AutoField(('INCOMEID'), primary_key=True)
     cid = models.ForeignKey(company, on_delete=models.CASCADE)
-    expenceincomeid = models.ForeignKey(expenseaccount, on_delete=models.CASCADE)
+    expenceincomeid = models.ForeignKey(
+        expenseaccount, on_delete=models.CASCADE)
     dat1 = models.CharField(default=timezone.now, max_length=100, null=True)
     intear = models.CharField(max_length=100, default='0')
     incacc = models.CharField(max_length=100, null=True)
     type2 = models.CharField(max_length=100, null=True, default='Deposit')
-    memo2 = models.CharField(max_length=100, null=True, default='Interest Earned')
+    memo2 = models.CharField(max_length=100, null=True,
+                             default='Interest Earned')
 
 
 class employee(models.Model):
@@ -1081,13 +1086,12 @@ class customize(models.Model):
     pcolour = models.CharField(max_length=255, default='', blank=True)
     scolour = models.CharField(max_length=255, default='', blank=True)
     fonts = models.CharField(max_length=255, default='', blank=True)
-    lastedited = models.CharField(default=timezone.now, max_length=255, blank=True)
+    lastedited = models.CharField(
+        default=timezone.now, max_length=255, blank=True)
     selected = models.CharField(max_length=255, default='', blank=True)
 
 
-
-
-
 # class customercomplaint(models.Model):
-#     invoicemd=models.ForeignKey()
-
+#     invoiceno = models.ForeignKey(max_length=255, null=True, blank=True)
+#     skunumber = models.CharField(max_length=255, null=True, blank=True)
+#     Description = models.CharField(max_length=255, null=True, blank=True)

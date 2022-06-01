@@ -1,5 +1,6 @@
 from django.urls import re_path
 from . import views
+from .views import *
 
 urlpatterns = [
     re_path(r'^$', views.index, name='index'),
@@ -350,8 +351,11 @@ urlpatterns = [
     re_path(r'^deletestyle/(?P<customizeid>\d+)$',views.deletestyle,name='deletestyle'),
     re_path(r'^cash_flow_analyzer$',views.cash_flow_analyzer,name='cash_flow_analyzer'),
     re_path(r'^cash_flow_sort$',views.cash_flow_sort,name='cash_flow_sort'),
+    #DD
     re_path(r'^quality_managment_notification',views.quality_managment_notification,name='quality_managment_notification'),
     re_path(r'^customer_complaint',views.customer_complaint,name='customer_complaint'),
+    re_path(r'^complaint_supplier',views.complaint_supplier,name='complaint_supplier'),
+    re_path(r'^material_error',views.material_error,name='material_error'),
 
 
 

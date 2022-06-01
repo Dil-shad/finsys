@@ -32634,19 +32634,60 @@ def quality_managment_notification(request):
 
 
 def customer_complaint(request):
+    if 'term' in request.GET:
+        qs=invoice.objects.filter(invoiceno__istartswith=request.GET.get('term'))
+        inumbers=list()
+        for x in qs:
+            inumbers.append(invoice.invoiceno)
+            return JsonResponse(inumbers,safe=False)
+            
+
     if request.method=='POST':
         invno=request.POST['invoiceno']
         sku=request.POST['skuno']
-
+        # desc=request.POST['compli']
+        ls=[]
         var=invoice.objects.filter(invoiceno=invno).all()
-        var1=inventory.objects.get(sku=sku)
-        
-        context={
+        try:   
+            var1=noninventory.objects.get(sku=sku) 
+            ls.append('noninventry'+str(var1.sku))
+            
+            
+            
+        except:
+            try:
+                var1=inventory.objects.get(sku=sku)
+                ls.append('inventery'+str(var1.sku))
+           
+            except:
+                print('data not found')
 
-            'obj1':var,
-            'obj2':var1,
-        }
+        print(var)
+        print(ls)
+        
+
+
+
+
+    #     context={
+
+    #         'obj1':var,
+    #         'obj2':var1,
+        # }
 
 
 
     return render(request,'app1/customercomplint.html')
+
+
+def complaint_supplier(request):
+
+
+    return render(request,'app1/complaintagainstsupplr.html')
+
+
+
+def material_error(request):
+
+
+    return render(request,'app1/material_error.html')
