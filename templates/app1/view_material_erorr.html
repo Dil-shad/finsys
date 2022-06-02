@@ -1,0 +1,64 @@
+{% extends 'app1/base.html' %}
+{% load static %}
+{% block body %}
+<div class="page-content">
+    <div class="card radius-15">
+        <div class="card-body">
+            <div class="card-title">
+                <center>
+                    <h2 class="mb-0">Metrial Erorr/h2>
+                </center>
+                <hr>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="page-content">
+        <div class="card radius-15">
+            <div class="card-body">
+                <div class="container-fluid">
+                    <table class="table table-responsive-md mt-4">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Product Name</th>
+                                <th>Invoice Number</th>
+                                <th>SKU no</th>
+                                <th>Description</th>
+                                <th>Complaint Qty</th>
+                               {% comment %}
+                                   <!-- <th>ACTION</th> -->
+                               {% endcomment %}
+    
+                              
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in obj %}
+    
+    
+                            <tr>
+                                <th>{{i.date}}</th>
+                                <td>{{i.name}}</td>
+                                <td>{{i.invoiceno}}</td>
+                                <td>{{i.skunumber}}</td>
+                                <td>{{i.description}}</td>
+                                <td>{{i.complaint_qty}}</td>
+                                {% comment %}
+                                  <td><a href="{% url 'customer_complaint_delete' i.id %}">DELETE</a></td>
+                                {% endcomment %}
+                                <!-- <td><a href="" style="color: white; font-size: 15px;"><i class="bx bx-edit">EDIT</i></a><br>
+                                    <a href="" style="color:white; font-size: 15px;"><i
+                                            class="bx bx-trash">DELETE</i></a><br>
+                                </td> -->
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endblock %}

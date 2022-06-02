@@ -1,5 +1,5 @@
 {% extends 'app1/base.html' %}
-
+{% load static %}
 {% block body %}
 <style>
     /* Style The Dropdown Button */
@@ -76,46 +76,20 @@
                 <option text="" value=""> <a href="">meteriel erorr</a><br> </option> -->
 
 
-            <button class="btn btn-outline-info mt-2  w-100"><a href="">View</a></button><br>
+                <td></td> <div class="dropdown w-100">
+                    <button class="dropbtn ">View</button>
+                    <div class="dropdown-content">
+                        <a href="{% url 'view_customer_complaint' %}">View Customer Complaint</a>
+                        <a href="{% url 'view_complaint_against_supplier' %}">view complaint against supplier</a>
+                        <a href="{% url 'view_material_erorr' %}">View Meterial Erorr</a>
+                    </div>
+                </div></td>
 
 
         </div>
         <div class="col-md-9">
 
-            <div class="container-fluid">
-                <table class="table table-responsive-md mt-4">
-                    <thead>
-                        <tr>
-                            <th>Type</th>
-                            <th>Product Name</th>
-                            <th>Invoice Number</th>
-                            <th>SKU no</th>
-                            <th>Description</th>
-                            <th>Complaint Qty</th>
-                            
-                            <!-- <th>ACTION</th> -->
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        <tr>
-                            <th></th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <!-- <td><a href="" style="color: white; font-size: 15px;"><i class="bx bx-edit">EDIT</i></a><br>
-                                <a href="" style="color:white; font-size: 15px;"><i
-                                        class="bx bx-trash">DELETE</i></a><br>
-                            </td> -->
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
-
-
+           
 
 
 

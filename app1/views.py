@@ -2,10 +2,11 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from datetime import datetime, date, timedelta
-from .models import advancepayment, paydowncreditcard, salesrecpts, timeact, timeactsale, Cheqs, suplrcredit, addac, \
-    bills, invoice, expences, payment, credit, delayedcharge, estimate, service, noninventory, bundle, employee, \
-    payslip, inventory, customer, supplier, company, accounts, ProductModel, ItemModel, accountype, \
-    expenseaccount, incomeaccount, accounts1, recon1, recordpay, addtax1, bankstatement, customize
+from datetime import timedelta
+# from .models import advancepayment, paydowncreditcard, salesrecpts, timeact, timeactsale, Cheqs, suplrcredit, addac, \
+#     bills, invoice, expences, payment, credit, delayedcharge, estimate, service, noninventory, bundle, employee, \
+#     payslip, inventory, customer, supplier, company, accounts, ProductModel, ItemModel, accountype, \
+#     expenseaccount, incomeaccount, accounts1, recon1, recordpay, addtax1, bankstatement, customize
 from django.contrib.auth.models import auth, User
 from django.contrib import messages
 from django.db.models import Sum, Q
@@ -14,6 +15,7 @@ import json
 from django.http.response import JsonResponse
 from django.contrib.auth.decorators import login_required
 import itertools
+from .models import *
 
 
 def index(request):
@@ -32643,51 +32645,196 @@ def customer_complaint(request):
             
 
     if request.method=='POST':
-        invno=request.POST['invoiceno']
-        sku=request.POST['skuno']
-        # desc=request.POST['compli']
-        ls=[]
-        var=invoice.objects.filter(invoiceno=invno).all()
-        try:   
-            var1=noninventory.objects.get(sku=sku) 
-            ls.append('noninventry'+str(var1.sku))
+        try:
+            invno=request.POST['invoiceno']
+            cqty=request.POST['cqty']
+            desc=request.POST['compli']
+            dt=request.POST['date']
             
-            
-            
-        except:
-            try:
-                var1=inventory.objects.get(sku=sku)
-                ls.append('inventery'+str(var1.sku))
-           
-            except:
-                print('data not found')
+            print(cqty)
+            print(desc)
+            m=invoice.objects.filter(invoiceno=invno)
+            if len(m) !=0 and len(dt)!=0:
 
-        print(var)
-        print(ls)
+                for i in m:
+                    try:
+                        var1=noninventory.objects.get(cid=i.cid) 
+                        # print('noninventery'+str(var1.sku))
+                        sk=(var1.sku)
+                        name=(var1.name)
+                    except:
+                        try:
+                            var1=inventory.objects.get(cid=i.cid)
+                            # print('invetery'+str(var1.sku))
+                            sk=(var1.sku)
+                            name=(var1.name)
+                        except:
+                            print('not found')
+
+
+
+                ex=customercomplaint(
+
+                    invoiceno =invno,
+                    skunumber =sk,
+                    complaint_qty =cqty,
+                    description =desc,
+                    name=name,
+                    date=dt,
+
+                )
+                ex.save()
+                return redirect('view_customer_complaint')
+            else:
+                 messages.info(
+                            request, 'Not valid')
+        except:
+            messages.info(
+                            request, 'Invoice not found')
+        
         
 
 
 
 
-    #     context={
+    toda = date.today()
+    
+    s1 = toda.strftime("%Y-%m-%d")
+    context={
+         'max':s1
+     }
 
-    #         'obj1':var,
-    #         'obj2':var1,
-        # }
-
-
-
-    return render(request,'app1/customercomplint.html')
+    return render(request,'app1/customercomplint.html',context)
 
 
 def complaint_supplier(request):
+    try:
+        if request.method=='POST':
+            supplier_name=request.POST['suplyr_name']
+            pro_name=request.POST['pr_name']
+            dt=request.POST['date']
+            inspect_qty=request.POST['insp_qty']
+            complaint_qty=request.POST['cmp_qty']
+            description=request.POST['complint']
 
 
-    return render(request,'app1/complaintagainstsupplr.html')
 
+            mdl=complaint_against_supplier(
+                supplier_name=supplier_name,
+                product_name=pro_name,
+                date=dt,
+                inspected_qty=inspect_qty,
+                complaint_qty=complaint_qty,
+                description=description,
+            )
+            mdl.save()
+            return redirect('complaint_supplier')
+    except:
+        messages.info(
+                    request, 'Data Not Valid')
 
+    mdl=supplier.objects.all()
+    ls=[]
+    var1=noninventory.objects.all() 
+    var2=inventory.objects.all()
+    for i in var1:
+        ls.append(i.name)
+    for j in var2:
+        ls.append(j.name)
+    toda = date.today()
+    
+    s1 = toda.strftime("%Y-%m-%d")
+    context={
+        'obj':mdl,
+        'ob':ls,
+        'max':s1,
+    }
+    return render(request,'app1/complaintagainstsupplr.html',context)
 
 def material_error(request):
+    try:
+        if request.method=='POST':
+            pro_name=request.POST['pro_name']
+            inpected_qty=request.POST['insp_qty']
+            complaint_qty=request.POST['cmp_qty']
+            description=request.POST['desc']
+            print(pro_name)
+            
+
+            try:
+                var1=noninventory.objects.get(name=pro_name)
+                # print('noninventery'+str(var1.sku))
+                print(var1.sku)
+                sk=(var1.sku)
+            
+            except:
+                print('not in non invo')
+                pass
+            try:
+                var2=inventory.objects.get(name=pro_name)
+                # print('invetery'+str(var1.sku))
+                print(var2.sku)
+                sk=(var2.sku)
+            except:
+                print('not in invontry ')
+                pass
+            print(pro_name)
+            print(sk)
 
 
-    return render(request,'app1/material_error.html')
+            mdl=material_error_model(
+
+
+                product_name=pro_name,
+                inspected_qty=inpected_qty,
+                complaint_qty=complaint_qty,
+                description=description,
+                skunumber =sk,
+            
+
+            )
+            mdl.save()
+            # return redirect('')
+        
+    except:
+        pass
+
+    ls=[]
+    var1=noninventory.objects.all() 
+    var2=inventory.objects.all()
+    for i in var1:
+        ls.append(i.name)
+    for j in var2:
+        ls.append(j.name)
+    # print(ls)
+    toda = date.today()
+    s1 = toda.strftime("%Y-%m-%d")
+    context={
+        'max':s1,
+        'obj':ls,
+        
+    }
+    return render(request,'app1/material_error.html',context)
+    
+
+
+
+
+
+def view_customer_complaint(request):
+    mdl=customercomplaint.objects.all()
+
+    return render(request,'app1/viewcustomer_complaint.html',{'obj':mdl})
+
+def customer_complaint_delete(request,pk):
+    print(pk)
+    return redirect('view_customer_complaint')
+
+def view_complaint_against_supplier(request):
+    mdl=complaint_against_supplier.objects.all()
+
+    return render(request,'app1/view_complaint_against_supplier.html',{'obj':mdl})
+
+
+def view_material_erorr(request):
+    return render(request,'app1/view_material_erorr.html')
