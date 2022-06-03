@@ -1,7 +1,17 @@
 {% extends 'app1/base.html' %}
 {% load static %}
 {% block body %}
-
+<div class="page-content">
+    <div class="card radius-15">
+        <div class="card-body">
+            <div class="card-title">
+                <center>
+                    <h2 class="mb-0">View Customer Complaints</h2>
+                </center>
+                <hr>
+            </div>
+        </div>
+    </div>
 <div class="page-content">
     <div class="card radius-15">
         <div class="card-body">
@@ -12,13 +22,12 @@
                             <th>Date</th>
                             <th>Product Name</th>
                             <th>Invoice Number</th>
-                            <th>SKU no</th>
+                            <th>SKU</th>
                             <th>Description</th>
                             <th>Complaint Qty</th>
-                           {% comment %}
-                               <!-- <th>ACTION</th> -->
-                           {% endcomment %}
-
+                           
+                               <th>ACTION</th>
+                           
                           
                         </tr>
                     </thead>
@@ -33,9 +42,9 @@
                             <td>{{i.skunumber}}</td>
                             <td>{{i.description}}</td>
                             <td>{{i.complaint_qty}}</td>
-                            {% comment %}
-                              <td><a href="{% url 'customer_complaint_delete' i.id %}">DELETE</a></td>
-                            {% endcomment %}
+                            
+                            <td><a href="{% url 'delete_customer_complaint' i.id %}">Remove</a></td>
+                            
                             <!-- <td><a href="" style="color: white; font-size: 15px;"><i class="bx bx-edit">EDIT</i></a><br>
                                 <a href="" style="color:white; font-size: 15px;"><i
                                         class="bx bx-trash">DELETE</i></a><br>

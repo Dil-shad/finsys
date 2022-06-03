@@ -1,4 +1,4 @@
-from django.urls import re_path
+from django.urls import re_path,path
 from . import views
 from .views import *
 
@@ -357,10 +357,16 @@ urlpatterns = [
     re_path(r'^complaint_supplier',views.complaint_supplier,name='complaint_supplier'),
     re_path(r'^material_error',views.material_error,name='material_error'),
     re_path(r'^view_customer_complaint',views.view_customer_complaint,name='view_customer_complaint'),
-    re_path(r'^customer_complaint_delete/<int:pk>',views.customer_complaint_delete,name='customer_complaint_delete'),
-
     re_path(r'^view_complaint_against_supplier',views.view_complaint_against_supplier,name='view_complaint_against_supplier'),
-    re_path(r'^view_material_erorr',views.view_material_erorr,name='view_material_erorr')
+    re_path(r'^view_material_erorr',views.view_material_erorr,name='view_material_erorr'),
+
+    re_path(r'^delete_customer_complaint/(?P<pk>\d+)$',views.delete_customer_complaint,name='delete_customer_complaint'),
+    re_path(r'^delete_view_complaint_against_supplier/(?P<pk>\d+)$',views.delete_view_complaint_against_supplier,name='delete_view_complaint_against_supplier'),
+    re_path(r'^delete_view_material_erorr/(?P<pk>\d+)$',views.delete_view_material_erorr,name='delete_view_material_erorr'),
+
+    re_path(r'^edit_quality_notifiaction',views.edit_quality_notifiaction,name='edit_quality_notifiaction'),
+
+
 
 
 

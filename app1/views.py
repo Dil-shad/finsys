@@ -32717,6 +32717,29 @@ def complaint_supplier(request):
             complaint_qty=request.POST['cmp_qty']
             description=request.POST['complint']
 
+            try:
+                var1=noninventory.objects.get(name=pro_name)
+                # print('noninventery'+str(var1.sku))
+                print(var1.sku)
+                sk=(var1.sku)
+            
+            except:
+                print('not in non invo')
+                # pass
+            try:
+                var2=inventory.objects.get(name=pro_name)
+                # print('invetery'+str(var1.sku))
+                print(var2.sku)
+                sk=(var2.sku)
+            except:
+                print('not in invontry ')
+                # messages.info(
+                #     request, 'Data Not Valid')
+                
+            # print(pro_name)
+            print(sk)
+
+
 
 
             mdl=complaint_against_supplier(
@@ -32726,12 +32749,12 @@ def complaint_supplier(request):
                 inspected_qty=inspect_qty,
                 complaint_qty=complaint_qty,
                 description=description,
+                sku_no=sk,
             )
             mdl.save()
-            return redirect('complaint_supplier')
+            return redirect('view_complaint_against_supplier')
     except:
-        messages.info(
-                    request, 'Data Not Valid')
+        pass
 
     mdl=supplier.objects.all()
     ls=[]
@@ -32757,7 +32780,8 @@ def material_error(request):
             pro_name=request.POST['pro_name']
             inpected_qty=request.POST['insp_qty']
             complaint_qty=request.POST['cmp_qty']
-            description=request.POST['desc']
+            description=request.POST['complint']
+            dt=request.POST['date']
             print(pro_name)
             
 
@@ -32778,7 +32802,7 @@ def material_error(request):
             except:
                 print('not in invontry ')
                 pass
-            print(pro_name)
+            # print(pro_name)
             print(sk)
 
 
@@ -32790,14 +32814,16 @@ def material_error(request):
                 complaint_qty=complaint_qty,
                 description=description,
                 skunumber =sk,
+                date=dt,
             
 
             )
             mdl.save()
-            # return redirect('')
+            return redirect('view_material_erorr')
         
     except:
-        pass
+        messages.info(request, 'Not found')
+        
 
     ls=[]
     var1=noninventory.objects.all() 
@@ -32826,9 +32852,16 @@ def view_customer_complaint(request):
 
     return render(request,'app1/viewcustomer_complaint.html',{'obj':mdl})
 
-def customer_complaint_delete(request,pk):
-    print(pk)
+def delete_customer_complaint(request,pk):
+    mdl=customercomplaint.objects.get(id=pk)
+
+    print(mdl)
+    mdl.delete()
+    
     return redirect('view_customer_complaint')
+
+
+
 
 def view_complaint_against_supplier(request):
     mdl=complaint_against_supplier.objects.all()
@@ -32836,5 +32869,31 @@ def view_complaint_against_supplier(request):
     return render(request,'app1/view_complaint_against_supplier.html',{'obj':mdl})
 
 
+
+def delete_view_complaint_against_supplier(request,pk):
+    mdl=complaint_against_supplier.objects.get(id=pk)
+    mdl.delete()
+    print('-------------------------------------------')
+
+    return redirect('view_complaint_against_supplier')
+
+
+
 def view_material_erorr(request):
-    return render(request,'app1/view_material_erorr.html')
+    mdl=material_error_model.objects.all()
+    return render(request,'app1/view_material_erorr.html',{'obj':mdl})
+
+
+
+def delete_view_material_erorr(request,pk):
+    mdl=material_error_model.objects.get(id=pk)
+    mdl.delete()
+    return redirect('view_material_erorr')
+
+
+
+
+
+
+def edit_quality_notifiaction(request):
+    return render(request,'app1/edit_quality_notification.html')

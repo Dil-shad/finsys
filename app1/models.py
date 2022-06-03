@@ -1110,6 +1110,7 @@ class complaint_against_supplier(models.Model):
     inspected_qty=models.CharField(max_length=255, null=True, blank=True)
     complaint_qty=models.CharField(max_length=255, null=True, blank=True)
     description=models.CharField(max_length=255, null=True, blank=True)
+    sku_no=models.CharField(max_length=255, null=True, blank=True)
 
 
 
@@ -1119,6 +1120,7 @@ class material_error_model(models.Model):
     complaint_qty=models.CharField(max_length=255, null=True, blank=True)
     description=models.CharField(max_length=255, null=True, blank=True)
     skunumber = models.CharField(max_length=255, null=True, blank=True)
+    date=models.DateField(max_length=10,null=True,blank=True)
 
     def __str_(self):
         return self.product_name

@@ -22,12 +22,13 @@
                                 <th>Date</th>
                                 <th>Supplier Name</th>
                                 <th>Product Name</th>
+                                <th>SKU</th>
                                 <th>Inspected Qty</th>
                                 <th>Complaint Qty</th>
                                 <th>Description</th>
-                               {% comment %}
-                                   <!-- <th>ACTION</th> -->
-                               {% endcomment %}
+                      
+                                   <th>ACTION</th>
+                             
     
                               
                             </tr>
@@ -40,12 +41,13 @@
                                 <th>{{i.date}}</th>
                                 <td>{{i.supplier_name}}</td>
                                 <td>{{i.product_name}}</td>
+                                <td>{{i.sku_no}}</td>
                                 <td>{{i.inspected_qty}}</td>
                                 <td>{{i.complaint_qty}}</td>
                                 <td>{{i.description}}</td>
-                                {% comment %}
-                                  <td><a href="{% url 'customer_complaint_delete' i.id %}">DELETE</a></td>
-                                {% endcomment %}
+                             
+                                <td><a href="{% url 'delete_view_complaint_against_supplier' i.id %}">Remove</a></td>
+                               
                                 <!-- <td><a href="" style="color: white; font-size: 15px;"><i class="bx bx-edit">EDIT</i></a><br>
                                     <a href="" style="color:white; font-size: 15px;"><i
                                             class="bx bx-trash">DELETE</i></a><br>
