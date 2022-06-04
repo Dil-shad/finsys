@@ -2,7 +2,6 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from datetime import datetime, date, timedelta
-from datetime import timedelta
 # from .models import advancepayment, paydowncreditcard, salesrecpts, timeact, timeactsale, Cheqs, suplrcredit, addac, \
 #     bills, invoice, expences, payment, credit, delayedcharge, estimate, service, noninventory, bundle, employee, \
 #     payslip, inventory, customer, supplier, company, accounts, ProductModel, ItemModel, accountype, \
@@ -32690,7 +32689,7 @@ def customer_complaint(request):
                             request, 'Not valid')
         except:
             messages.info(
-                            request, 'Invoice not found')
+                            request, 'Enter valid data')
         
         
 
@@ -32734,7 +32733,7 @@ def complaint_supplier(request):
             except:
                 print('not in invontry ')
                 # messages.info(
-                #     request, 'Data Not Valid')
+                #     request, ' DataNot Valid')
                 
             # print(pro_name)
             print(sk)
@@ -32754,8 +32753,9 @@ def complaint_supplier(request):
             mdl.save()
             return redirect('view_complaint_against_supplier')
     except:
-        pass
-
+        messages.info(
+                    request, 'Enter valid data')
+        
     mdl=supplier.objects.all()
     ls=[]
     var1=noninventory.objects.all() 
@@ -32848,9 +32848,48 @@ def material_error(request):
 
 
 def view_customer_complaint(request):
-    mdl=customercomplaint.objects.all()
+    mdl=customercomplaint.objects.all().order_by('date')
 
     return render(request,'app1/viewcustomer_complaint.html',{'obj':mdl})
+
+
+
+def edit_customer_complaint(request,pk):
+    if request.method=='POST':
+        print(pk)
+        var=customercomplaint.objects.get(id=pk)
+        
+        var.complaint_qty=request.POST.get('cmp_qty')
+        var.description=request.POST.get('complint')
+        l=request.POST.get('date')
+        print(len(l))
+
+        if not len(l)<=0:
+            var.date=l
+        else:
+            pass
+
+
+        print(l)
+       
+
+        
+        var.save()
+        return redirect('view_customer_complaint')
+    toda = date.today()
+    s1 = toda.strftime("%Y-%m-%d")
+    mdl=customercomplaint.objects.get(id=pk)
+    context={
+        'max':s1,
+        'obj':mdl,
+        
+    }
+        
+    
+    return render(request,'edit_customer_complaint.html',context)
+
+
+
 
 def delete_customer_complaint(request,pk):
     mdl=customercomplaint.objects.get(id=pk)
@@ -32861,10 +32900,8 @@ def delete_customer_complaint(request,pk):
     return redirect('view_customer_complaint')
 
 
-
-
 def view_complaint_against_supplier(request):
-    mdl=complaint_against_supplier.objects.all()
+    mdl=complaint_against_supplier.objects.all().order_by('date')
 
     return render(request,'app1/view_complaint_against_supplier.html',{'obj':mdl})
 
@@ -32877,10 +32914,52 @@ def delete_view_complaint_against_supplier(request,pk):
 
     return redirect('view_complaint_against_supplier')
 
+def edit_complaint_against_supplier(request,pk):
+    if request.method=='POST':
+        print(pk)
+        var=complaint_against_supplier.objects.get(id=pk)
+        var.inspected_qty=request.POST.get('insp_qty')
+        var.complaint_qty=request.POST.get('cmp_qty')
+        var.description=request.POST.get('complint')
+        l=request.POST.get('date')
+        print(len(l))
+
+        if not len(l)<=0:
+            var.date=l
+        else:
+            pass
+
+
+        print(l)
+       
+
+        
+        var.save()
+       
+        return redirect('view_complaint_against_supplier')
+
+
+
+    print(pk)
+    mdl=complaint_against_supplier.objects.get(id=pk)
+    toda = date.today()
+    s1 = toda.strftime("%Y-%m-%d")
+    context={
+        'max':s1,
+        'obj':mdl,
+        
+    }
+        
+    return render(request,'app1/edit_complaint_against_supllier.html',context)
+
 
 
 def view_material_erorr(request):
-    mdl=material_error_model.objects.all()
+    # start = date(2022, 1, 1)
+    # toda = date.today()
+    # end =  toda.strftime("%Y-%m-%d")
+    # mdl=material_error_model.objects.filter(date_lte=start,date_gte=end)
+    mdl=material_error_model.objects.all().order_by('date')
     return render(request,'app1/view_material_erorr.html',{'obj':mdl})
 
 
@@ -32895,5 +32974,35 @@ def delete_view_material_erorr(request,pk):
 
 
 
-def edit_quality_notifiaction(request):
-    return render(request,'app1/edit_quality_notification.html')
+def edit_material_erorr(request,pk):
+    
+    if request.method=='POST':
+        #print(pk)
+        var=material_error_model.objects.get(id=pk)
+        var.inspected_qty=request.POST.get('insp_qty')
+        var.complaint_qty=request.POST.get('cmp_qty')
+        var.description=request.POST.get('complint')
+        l=request.POST.get('date')
+        print(len(l))
+
+        if not len(l)<=0:
+            var.date=l
+        else:
+            pass
+
+
+        print(l)
+        var.save()
+       
+        return redirect('view_material_erorr')
+  
+    mdl=material_error_model.objects.get(id=pk)
+    toda = date.today()
+    s1 = toda.strftime("%Y-%m-%d")
+    context={
+        'max':s1,
+        'obj':mdl,
+        
+    }
+        
+    return render(request,'app1/edit_material_erorr.html',context)

@@ -26,7 +26,7 @@
                             <th>Description</th>
                             <th>Complaint Qty</th>
                            
-                               <th>ACTION</th>
+                            <th>ACTION</th>
                            
                           
                         </tr>
@@ -43,12 +43,31 @@
                             <td>{{i.description}}</td>
                             <td>{{i.complaint_qty}}</td>
                             
-                            <td><a href="{% url 'delete_customer_complaint' i.id %}">Remove</a></td>
                             
-                            <!-- <td><a href="" style="color: white; font-size: 15px;"><i class="bx bx-edit">EDIT</i></a><br>
-                                <a href="" style="color:white; font-size: 15px;"><i
-                                        class="bx bx-trash">DELETE</i></a><br>
-                            </td> -->
+                                         
+                                <td>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-outline-info dropdown-toggle text-grey"
+                                                data-toggle="dropdown">Actions
+                                        </button>
+                                        <div class="dropdown-menu" style="background-color: white;">
+                                            <a href="{% url 'edit_customer_complaint' i.id %}" class="dropdown-item"
+                                               style="color: black; font-size: 15px;"><i class="bx bx-edit"><b>EDIT</b></i></a>
+                                            <a href="{% url 'delete_customer_complaint' i.id %}" class="dropdown-item"
+                                               style="color: black; font-size: 15px;"><i
+                                                    class="bx bx-trash"><b>DELETE</b></i></a>
+                                           
+                                        </div>
+                                    </div>
+                                    
+                                   
+                                
+                               
+                                </td>
+                                
+                               
+                            
+                           
                         </tr>
                         {% endfor %}
                     </tbody>

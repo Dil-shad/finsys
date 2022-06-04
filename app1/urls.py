@@ -364,8 +364,9 @@ urlpatterns = [
     re_path(r'^delete_view_complaint_against_supplier/(?P<pk>\d+)$',views.delete_view_complaint_against_supplier,name='delete_view_complaint_against_supplier'),
     re_path(r'^delete_view_material_erorr/(?P<pk>\d+)$',views.delete_view_material_erorr,name='delete_view_material_erorr'),
 
-    re_path(r'^edit_quality_notifiaction',views.edit_quality_notifiaction,name='edit_quality_notifiaction'),
-
+    re_path(r'^edit_material_erorr/(?P<pk>\d+)$',views.edit_material_erorr,name='edit_material_erorr'),
+    re_path(r'^edit_complaint_against_supplier/(?P<pk>\d+)$',views.edit_complaint_against_supplier,name='edit_complaint_against_supplier'),
+    re_path(r'^edit_customer_complaint/(?P<pk>\d+)$',views.edit_customer_complaint,name='edit_customer_complaint'),
 
 
 

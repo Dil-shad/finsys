@@ -53,23 +53,19 @@
                                                 data-toggle="dropdown">Actions
                                         </button>
                                         <div class="dropdown-menu" style="background-color: white;">
-                                            <a href="" class="dropdown-item"
+                                            <a href="{% url 'edit_material_erorr' i.id %}" class="dropdown-item"
                                                style="color: black; font-size: 15px;"><i class="bx bx-edit"><b>EDIT</b></i></a>
                                             <a href="{% url 'delete_view_material_erorr' i.id %}" class="dropdown-item"
                                                style="color: black; font-size: 15px;"><i
                                                     class="bx bx-trash"><b>DELETE</b></i></a>
-                                            <!-- <a href="" class="dropdown-item"
-                                               style="color: black; font-size: 15px;"><i
-                                                    class="bx bxs-eyedropper"><b>VIEW</b></i></a> -->
+                                           
                                         </div>
                                     </div>
                                     
                                    
                                 
-                                <!-- <td><a href="" style="color: white; font-size: 15px;"><i class="bx bx-edit">EDIT</i></a><br>
-                                    <a href="" style="color:white; font-size: 15px;"><i
-                                            class="bx bx-trash">DELETE</i></a><br>
-                                </td> -->
+                               
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>
