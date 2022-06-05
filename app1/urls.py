@@ -368,6 +368,7 @@ urlpatterns = [
     re_path(r'^edit_complaint_against_supplier/(?P<pk>\d+)$',views.edit_complaint_against_supplier,name='edit_complaint_against_supplier'),
     re_path(r'^edit_customer_complaint/(?P<pk>\d+)$',views.edit_customer_complaint,name='edit_customer_complaint'),
 
+    re_path(r'^filter_date_qulity_notification',views.filter_date_qulity_notification,name='filter_date_qulity_notification'),
 
 
 

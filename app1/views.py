@@ -32955,10 +32955,7 @@ def edit_complaint_against_supplier(request,pk):
 
 
 def view_material_erorr(request):
-    # start = date(2022, 1, 1)
-    # toda = date.today()
-    # end =  toda.strftime("%Y-%m-%d")
-    # mdl=material_error_model.objects.filter(date_lte=start,date_gte=end)
+   
     mdl=material_error_model.objects.all().order_by('date')
     return render(request,'app1/view_material_erorr.html',{'obj':mdl})
 
@@ -32977,7 +32974,6 @@ def delete_view_material_erorr(request,pk):
 def edit_material_erorr(request,pk):
     
     if request.method=='POST':
-        #print(pk)
         var=material_error_model.objects.get(id=pk)
         var.inspected_qty=request.POST.get('insp_qty')
         var.complaint_qty=request.POST.get('cmp_qty')
@@ -33006,3 +33002,82 @@ def edit_material_erorr(request,pk):
     }
         
     return render(request,'app1/edit_material_erorr.html',context)
+
+
+
+def filter_date_qulity_notification(request):
+    if request.method=='POST':
+        toda = date.today()
+        tod = toda.strftime("%Y-%m-%d")
+        try:
+
+            typ=request.POST['filtertyp_customercomplaint_view']
+           
+            if typ=='Today':
+                start=tod
+                end=tod
+            elif typ=='Custom':
+                start = request.POST['fper']
+                end = request.POST['tper']
+            elif typ=='This month':
+                start=toda.strftime("%Y-%m-1")
+                end=tod
+            else:
+                mdl=customercomplaint.objects.all().order_by('date')
+                return render(request,'app1/viewcustomer_complaint.html',{'obj':mdl})
+            mdl=customercomplaint.objects.filter(date__range=[start, end])
+            return render(request,'app1/viewcustomer_complaint.html',{'obj':mdl})
+        except:
+            try:
+
+                typ=request.POST['filtertyp_material_view']
+               
+                if typ=='Today':
+                    start=tod
+                    end=tod
+                elif typ=='Custom':
+                    start = request.POST['fper']
+                    end = request.POST['tper']
+
+                elif typ=='This month':
+                    start=toda.strftime("%Y-%m-1")
+                    end=tod
+                else:
+                    mdl=material_error_model.objects.all().order_by('date')
+                    return render(request,'app1/view_material_erorr.html',{'obj':mdl})
+               
+                mdl=material_error_model.objects.filter(date__range=[start, end])
+               
+                return render(request,'app1/view_material_erorr.html',{'obj':mdl})
+            except:
+                try:
+
+                    typ=request.POST['filtertyp_com_against_supplier_view']
+                   
+                    if typ=='Today':
+                        start=tod
+                        end=tod
+                    elif typ=='Custom':
+                        start = request.POST['fper']
+                        end = request.POST['tper']
+
+                    elif typ=='This month':
+                        start=toda.strftime("%Y-%m-1")
+                        end=tod
+                    else:
+                        mdl=complaint_against_supplier.objects.all().order_by('date')
+                        return render(request,'app1/view_complaint_against_supplier.html',{'obj':mdl})
+
+                    mdl=complaint_against_supplier.objects.filter(date__range=[start, end])
+                    return render(request,'app1/view_complaint_against_supplier.html',{'obj':mdl})    
+                except:
+                    messages.info(request, 'Somthing wrong')
+        
+   
+
+
+
+
+
+
+

@@ -58,6 +58,14 @@
     .dropdown:hover .dropbtn {
       background-color: #315472;
     }
+    .N{
+      text-transform: uppercase;
+    }
+    .N:hover{
+      text-transform: uppercase;
+      font-weight: 600;
+      
+    }
     </style>
     
 <div class="container" style="min-height: 100vh;">
@@ -80,9 +88,9 @@
             <td></td> <div class="dropdown w-100">
               <button class="dropbtn" >CREATE</button>
               <div class="dropdown-content">
-                  <a href="{% url 'customer_complaint' %}"> Customer Complaint</a>
-                  <a href="{% url 'complaint_supplier' %}">Complaint against supplier</a>
-                  <a href="{% url 'material_error' %}">Material Erorr</a>
+                  <a class="N" href="{% url 'customer_complaint' %}"> Customer Complaint</a>
+                  <a class="N" href="{% url 'complaint_supplier' %}">Complaint against supplier</a>
+                  <a class="N" href="{% url 'material_error' %}">Material Erorr</a>
               </div>
           </div></td>
 
@@ -91,9 +99,9 @@
             <td></td> <div class="dropdown w-100">
               <button class="dropbtn ">VIEW</button>
               <div class="dropdown-content">
-                  <a href="{% url 'view_customer_complaint' %}">View Customer Complaints</a>
-                  <a href="{% url 'view_complaint_against_supplier' %}">View Complaint Against Supplier</a>
-                  <a href="{% url 'view_material_erorr' %}">View Meterial Erorr</a>
+                  <a class="N" href="{% url 'view_customer_complaint' %}">Customer Complaints</a>
+                  <a class="N" href="{% url 'view_complaint_against_supplier' %}"> Complaint Against Supplier</a>
+                  <a class="N" href="{% url 'view_material_erorr' %}">Meterial Erorr</a>
               </div>
           </div></td>
           </div>
@@ -102,7 +110,6 @@
 
 
 </div>
-
 
 
 
