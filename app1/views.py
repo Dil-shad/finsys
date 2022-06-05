@@ -32860,15 +32860,17 @@ def edit_customer_complaint(request,pk):
         var=customercomplaint.objects.get(id=pk)
         
         var.complaint_qty=request.POST.get('cmp_qty')
-        var.description=request.POST.get('complint')
+        t=request.POST.get('complint')
         l=request.POST.get('date')
         print(len(l))
 
         if not len(l)<=0:
             var.date=l
+        elif not len(t)<=0:
+            var.description=t
         else:
             pass
-
+                
 
         print(l)
        
@@ -32920,12 +32922,14 @@ def edit_complaint_against_supplier(request,pk):
         var=complaint_against_supplier.objects.get(id=pk)
         var.inspected_qty=request.POST.get('insp_qty')
         var.complaint_qty=request.POST.get('cmp_qty')
-        var.description=request.POST.get('complint')
+        t=request.POST.get('complint')
         l=request.POST.get('date')
         print(len(l))
 
         if not len(l)<=0:
             var.date=l
+        elif not len(t)<=0:
+            var.description=t
         else:
             pass
 
@@ -32977,12 +32981,16 @@ def edit_material_erorr(request,pk):
         var=material_error_model.objects.get(id=pk)
         var.inspected_qty=request.POST.get('insp_qty')
         var.complaint_qty=request.POST.get('cmp_qty')
-        var.description=request.POST.get('complint')
+        t=request.POST.get('complint')
         l=request.POST.get('date')
         print(len(l))
 
         if not len(l)<=0:
             var.date=l
+
+        elif not len(t)<=0:
+            var.description=t
+
         else:
             pass
 
