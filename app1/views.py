@@ -32689,7 +32689,7 @@ def customer_complaint(request):
                             request, 'Not valid')
         except:
             messages.info(
-                            request, 'Enter valid data')
+                            request, 'Not valid')
         
         
 
@@ -32754,7 +32754,7 @@ def complaint_supplier(request):
             return redirect('view_complaint_against_supplier')
     except:
         messages.info(
-                    request, 'Enter valid data')
+                    request, 'Not valid')
         
     mdl=supplier.objects.all()
     ls=[]
@@ -32793,15 +32793,15 @@ def material_error(request):
             
             except:
                 print('not in non invo')
-                pass
-            try:
-                var2=inventory.objects.get(name=pro_name)
-                # print('invetery'+str(var1.sku))
-                print(var2.sku)
-                sk=(var2.sku)
-            except:
-                print('not in invontry ')
-                pass
+              
+                try:
+                    var2=inventory.objects.get(name=pro_name)
+                    # print('invetery'+str(var1.sku))
+                    print(var2.sku)
+                    sk=(var2.sku)
+                except:
+                    print('not in invontry ')
+                    pass
             # print(pro_name)
             print(sk)
 
@@ -32822,7 +32822,8 @@ def material_error(request):
             return redirect('view_material_erorr')
         
     except:
-        messages.info(request, 'Not found')
+        messages.info(
+                    request, 'Not valid')
         
 
     ls=[]
@@ -32840,6 +32841,7 @@ def material_error(request):
         'obj':ls,
         
     }
+   
     return render(request,'app1/material_error.html',context)
     
 
@@ -33033,7 +33035,7 @@ def filter_date_qulity_notification(request):
             else:
                 mdl=customercomplaint.objects.all().order_by('date')
                 return render(request,'app1/viewcustomer_complaint.html',{'obj':mdl})
-            mdl=customercomplaint.objects.filter(date__range=[start, end])
+            mdl=customercomplaint.objects.filter(date__range=[start, end]).order_by('date')
             return render(request,'app1/viewcustomer_complaint.html',{'obj':mdl})
         except:
             try:
@@ -33054,7 +33056,7 @@ def filter_date_qulity_notification(request):
                     mdl=material_error_model.objects.all().order_by('date')
                     return render(request,'app1/view_material_erorr.html',{'obj':mdl})
                
-                mdl=material_error_model.objects.filter(date__range=[start, end])
+                mdl=material_error_model.objects.filter(date__range=[start, end]).order_by('date')
                
                 return render(request,'app1/view_material_erorr.html',{'obj':mdl})
             except:
@@ -33076,7 +33078,7 @@ def filter_date_qulity_notification(request):
                         mdl=complaint_against_supplier.objects.all().order_by('date')
                         return render(request,'app1/view_complaint_against_supplier.html',{'obj':mdl})
 
-                    mdl=complaint_against_supplier.objects.filter(date__range=[start, end])
+                    mdl=complaint_against_supplier.objects.filter(date__range=[start, end]).order_by('date')
                     return render(request,'app1/view_complaint_against_supplier.html',{'obj':mdl})    
                 except:
                     messages.info(request, 'Somthing wrong')
